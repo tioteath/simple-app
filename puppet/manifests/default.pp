@@ -37,6 +37,10 @@ node /backend.*/ {
     After=network.target
 
     [Service]
+    Environment="DB_HOST=mysql"
+    Environment="DB_NAME=employees"
+    Environment="DB_USER=employees"
+    Environment="DB_PASSWORD=employees"
     User=app
     Restart=on-failure
     WorkingDirectory=/app
