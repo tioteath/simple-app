@@ -36,7 +36,7 @@ module Sinatra
       statement = settings.mysql.prepare "SELECT emp_no, first_name, " \
           "last_name, birth_date, hire_date, gender FROM employees WHERE " \
           "DATE(birth_date) = ? AND DATE(hire_date) > ? AND gender = ? " \
-          "ORDER BY first_name, last_name DESC LIMIT 100"
+          "ORDER BY first_name, last_name"
       @result = statement.execute('1965-02-01', '1990-01-01', 'M')
       haml :index
     end
@@ -68,6 +68,12 @@ __END__
     .glyphicon { margin-right: 4px; }
   %body
     = yield
+    .navbar.navbar-inverse.navbar-fixed-bottom
+      .navbar-inner
+        .container.text-center
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              %p.navbar-text= Time.now.utc.iso8601
 
 @@index
 .jumbotron
@@ -79,7 +85,7 @@ __END__
           the hire date is greater than 1990-01-01 ordered by
           the Full Name of the employee
         %tr
-          %th #
+          %th ID
           %th Full Name
           %th Birth Date
           %th Hire Date
