@@ -104,6 +104,7 @@ vagrant provision --provision-with serverspec
 ### Limitations
 The version of software had been used:
 ```
+git version 2.19.1
 VirtualBox Version 5.2.20 r125813
 Vagrant 2.2.0
 vagrant-hosts 2.8.3
