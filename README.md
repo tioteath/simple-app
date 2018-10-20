@@ -82,7 +82,7 @@ vagrant halt
 # Start and provision
 vagrant up --provision
 # Restart
-vagrant restart
+vagrant reload
 # Apply Puppet manifests
 vagrant up --provision --provision-with puppet
 # Restart the backend's so the app code modifications are available
