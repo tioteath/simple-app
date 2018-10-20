@@ -21,23 +21,26 @@ module Sinatra
           password: password
     end
 
-    get '/' do
+    set :statement do
       # list of employees that are Male which birth date is 1965-02-01 and
       # the hire date is greater than 1990-01-01 ordered by
       # the Full Name of the employee
-      #  Field      | Type          | Null | Key | Default | Extra
-      # ------------+---------------+------+-----+---------+-------
-      #  emp_no     | int(11)       | NO   | PRI | NULL    |
-      #  birth_date | date          | NO   |     | NULL    |
-      #  first_name | varchar(14)   | NO   |     | NULL    |
-      #  last_name  | varchar(16)   | NO   |     | NULL    |
-      #  gender     | enum('M','F') | NO   |     | NULL    |
-      #  hire_date  | date          | NO   |     | NULL    |
-      statement = settings.mysql.prepare "SELECT emp_no, first_name, " \
+      #  Field      | Type          | Null | Key | Default
+      # ------------+---------------+------+-----+---------
+      #  emp_no     | int(11)       | NO   | PRI | NULL
+      #  birth_date | date          | NO   |     | NULL
+      #  first_name | varchar(14)   | NO   |     | NULL
+      #  last_name  | varchar(16)   | NO   |     | NULL
+      #  gender     | enum('M','F') | NO   |     | NULL
+      #  hire_date  | date          | NO   |     | NULL
+      settings.mysql.prepare "SELECT emp_no, first_name, " \
           "last_name, birth_date, hire_date, gender FROM employees WHERE " \
           "DATE(birth_date) = ? AND DATE(hire_date) > ? AND gender = ? " \
           "ORDER BY first_name, last_name"
-      @result = statement.execute('1965-02-01', '1990-01-01', 'M')
+    end
+
+    get '/' do
+      @result = settings.statement.execute('1965-02-01', '1990-01-01', 'M')
       haml :index
     end
   end
