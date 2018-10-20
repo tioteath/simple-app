@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe package 'puppet' do
+describe package 'puppet-agent' do
   it { should be_installed }
 end
 
